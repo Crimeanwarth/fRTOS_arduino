@@ -14,7 +14,7 @@ TaskProfiler blueLEDTaskProfiler;
 
 TaskHandle_t red_Handle, yellow_Handle, blue_Handle;
 
-int yellowTaskPrio;
+int yellowTaskPrio, redTaskPrio, blueTaskPrio;
 
 void setup() {
   Serial.begin(9600);
@@ -41,11 +41,17 @@ void yellowLEDTaskController(void *pvParameters){
 
   while(1){
     yellowLEDTaskProfiler++;
-    yellowTaskPrio = uxTaskPriorityGet(yellow_Handle);
+    yellowTaskPrio = uxTaskPriorityGet(NULL); // Or the task handle if it isn't in the local scope.
+    //redTaskPrio = uxTaskPriorityGet(red_Handle);
+    //blueTaskPrio = uxTaskPriorityGet(blue_Handle);
     Serial.print("YELLOW Run Time:");
     Serial.println(yellowLEDTaskProfiler);
     Serial.print("YELLOW Task Priority:");
     Serial.println(yellowTaskPrio);
+    //Serial.print("RED Task Priority:");
+    //Serial.println(redTaskPrio);
+    //Serial.print("BLUE Task Priority:");
+    //Serial.println(blueTaskPrio);
     delay(300);
   }
 }
